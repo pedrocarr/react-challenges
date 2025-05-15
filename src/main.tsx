@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import PublicHolidays from './components/PublicHolidays'
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <PublicHolidays></PublicHolidays>
   </StrictMode>,
 )
