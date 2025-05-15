@@ -76,11 +76,9 @@ const PublicHolidays = () => {
           </option>
         )}
       </select>
-      <ul>
         {holidays.map((holiday) =>
-          <li key={holiday.id}><strong>{holiday.startDate}</strong> - {holiday.name[0].text} </li>
+          <span className='publicHolidaysSpan' key={holiday.id}><strong>{new Date(holiday.startDate).toDateString()}</strong> - {holiday.name[0].text} </span>
         )}
-      </ul>
     </div>
   )
 }
