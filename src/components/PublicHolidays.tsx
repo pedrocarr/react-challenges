@@ -40,7 +40,6 @@ const PublicHolidays = () => {
       try {
         const response = await fetch(COUNTRIES_URL)
         const countries = await response.json()
-        console.log(countries)
         setCountries(countries)
       } catch (error: unknown) {
         console.error('Error fetching countries:', error)
