@@ -9,3 +9,11 @@ The main screen should show:
 You can retrieve a list of available countries and their holidays from the OpenHolidays API. Use English (en) for the `languageIsoCode`.
 - By default, you should show the holidays for The Netherlands.
 
+2. Show 10 articles from the Hacker News API
+
+- use the Hacker News "Top Articles" API
+- for each article, display its score, title, url and author
+- do not display the article details until all the data is loaded
+
+The catch of this challenge is that you can fetch the 500 top Stories Id, get the 10 first by using slice, and then fetch the 10 urls in pararel, map them inside a promise all.
+
