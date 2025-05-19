@@ -67,17 +67,20 @@ const PublicHolidays = () => {
   }
 
   return (
-    <div className='publicHolidays'>
-      <select onChange={handleCountryChange} value={selectedCountry}>
-        {countries.map((country) =>
-          <option key={country.isoCode} value={country.isoCode}>
-            {country.name[0].text}
-          </option>
-        )}
-      </select>
-        {holidays.map((holiday) =>
-          <span className='publicHolidaysSpan' key={holiday.id}><strong>{new Date(holiday.startDate).toDateString()}</strong> - {holiday.name[0].text} </span>
-        )}
+    <div className='publicHolidaysContainer'>
+      <div className='selectWrapper'>
+        <select onChange={handleCountryChange} value={selectedCountry}>
+          {countries.map((country) =>
+            <option key={country.isoCode} value={country.isoCode}>
+              {country.name[0].text}
+            </option>
+          )}
+        </select>
+      </div>
+      <div className='holidaysList'></div>
+      {holidays.map((holiday) =>
+        <span className='publicHolidaysSpan' key={holiday.id}><strong>{new Date(holiday.startDate).toDateString()}</strong> - {holiday.name[0].text} </span>
+      )}
     </div>
   )
 }

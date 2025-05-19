@@ -1,8 +1,29 @@
-.publicHolidays {
+.publicHolidaysContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.selectWrapper {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+}
+
+.selectWrapper select {
   display: grid;
   place-content: center;
 }
 
+.holidaysList {
+  padding: 1rem;
+}
+
 .publicHolidaysSpan {
-  margin-top: 10px;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
 }
