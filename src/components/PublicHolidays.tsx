@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import '../App.css'
+import './PublicHolidays.css'
 
 const currentYear = new Date().getFullYear()
 
