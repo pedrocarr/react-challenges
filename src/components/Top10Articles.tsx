@@ -27,8 +27,6 @@ const Top10Articles = () => {
 
         const storiesData: Story[] = await Promise.all(storyPromises)
 
-        console.log(storiesData)
-
         setStories(storiesData)
         setIsLoading(false)
       } catch (error) {
@@ -52,7 +50,6 @@ const Top10Articles = () => {
             <p><strong>Score</strong>: {story.score} - by {story.by}</p>
           </li>
         )}
-
       </ul>
     </>
   )
