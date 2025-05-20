@@ -17,3 +17,12 @@ You can retrieve a list of available countries and their holidays from the OpenH
 
 The catch of this challenge is that you can fetch the 500 top Stories Id, get the 10 first by using slice, and then fetch the 10 urls in pararel, map them inside a promise all.
 
+3. Build a custom useFetch hook
+
+The code should
+
+- return the response from the server
+- handle error and loading states
+- support custom headers through an options parameter
+- support all HTTP methods - e.g. both GET and POST requests
+- Use TypeScript
