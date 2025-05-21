@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-
 interface Story {
   score: number;
   title: string;
@@ -12,10 +11,12 @@ const TOP_STORIES_URL = 'https://hacker-news.firebaseio.com/v0/topstories.json'
 const Top10Articles = () => {
   const [stories, setStories] = useState<Story[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<unknown>(null)
 
   useEffect(() => {
-    setIsLoading(true)
     const fetchTopStories = async () => {
+      setIsLoading(true)
+      setError(null)
       try {
         const response = await fetch(TOP_STORIES_URL)
         const allStories: number[] = await response.json()
@@ -28,9 +29,11 @@ const Top10Articles = () => {
         const storiesData: Story[] = await Promise.all(storyPromises)
 
         setStories(storiesData)
-        setIsLoading(false)
       } catch (error) {
         console.error('Error fetching top stories', error)
+        setError(error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -42,6 +45,9 @@ const Top10Articles = () => {
       <h1>Top 10 Articles From Hacker News</h1>
       {isLoading && (
         <div>is loading ...</div>
+      )}
+      {error && (
+        <div>Error happened</div>
       )}
       <ul>
         {stories.map((story, idx) =>

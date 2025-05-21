@@ -19,11 +19,8 @@
   place-content: center;
 }
 
-.holidaysList {
-  padding: 1rem;
-}
 
 .publicHolidaysSpan {
-  margin-bottom: 0.75rem;
+  margin-top: 0.75rem;
   font-size: 0.95rem;
 }

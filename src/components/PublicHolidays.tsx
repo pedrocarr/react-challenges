@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import { useState } from 'react'
 import './PublicHolidays.css'
+import useFetch from '../custom-hooks/useFetch'
 
 const currentYear = new Date().getFullYear()
 
@@ -31,36 +32,14 @@ interface HolidayName {
 
 }
 const PublicHolidays = () => {
-  const [countries, setCountries] = React.useState<Country[]>([])
-  const [selectedCountry, setSelectedCountry] = React.useState<string>('NL')
-  const [holidays, setHolidays] = React.useState<Holiday[]>([])
+  const [selectedCountry, setSelectedCountry] = useState<string>('NL')
+  const { data } = useFetch<Country[]>(COUNTRIES_URL)
+  const { data: holidaysList } = useFetch<Holiday[]>(getPubicHolidays(selectedCountry))
 
-  useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const response = await fetch(COUNTRIES_URL)
-        const countries = await response.json()
-        setCountries(countries)
-      } catch (error: unknown) {
-        console.error('Error fetching countries:', error)
-      }
-    }
+  const countries = data || []
 
-    fetchCountries()
-  }, [])
+  const holidays = holidaysList || []
 
-  useEffect(() => {
-    const fetchHolidays = async () => {
-      try {
-        const response = await fetch(getPubicHolidays(selectedCountry))
-        const holidays = await response.json()
-        setHolidays(holidays)
-      } catch (error: unknown) {
-        console.error('Error fetching holidays', error)
-      }
-    }
-    if (selectedCountry) fetchHolidays()
-  }, [selectedCountry])
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value)
@@ -77,8 +56,7 @@ const PublicHolidays = () => {
           )}
         </select>
       </div>
-      <div className='holidaysList'></div>
-      {holidays.map((holiday) =>
+      {selectedCountry && holidays.map((holiday) =>
         <span className='publicHolidaysSpan' key={holiday.id}><strong>{new Date(holiday.startDate).toDateString()}</strong> - {holiday.name[0].text} </span>
       )}
     </div>
