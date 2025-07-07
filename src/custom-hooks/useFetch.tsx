@@ -16,7 +16,6 @@ export default function useFetch<T>(url: string, options?: RequestInit) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
         const json = (await response.json()) as T
-        console.log("🚀 ~ fetchData ~ json:", json)
         setData(json)
       } catch (err) {
         setError(err)

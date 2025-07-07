@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
 interface Story {
   score: number;
   title: string;
@@ -8,37 +8,23 @@ interface Story {
 
 const TOP_STORIES_URL = 'https://hacker-news.firebaseio.com/v0/topstories.json'
 
+const fetchTopStories = async (): Promise<Story[]> => {
+  const response = await fetch(TOP_STORIES_URL)
+  const allStories: number[] = await response.json()
+  const top10Ids = allStories.slice(0, 10)
+  const storyPromises = top10Ids.map(id =>
+    fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(res => res.json())
+  )
+
+  return Promise.all(storyPromises)
+}
+
 const Top10Articles = () => {
-  const [stories, setStories] = useState<Story[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<unknown>(null)
-
-  useEffect(() => {
-    const fetchTopStories = async () => {
-      setIsLoading(true)
-      setError(null)
-      try {
-        const response = await fetch(TOP_STORIES_URL)
-        const allStories: number[] = await response.json()
-        const top10Ids = allStories.slice(0, 10)
-
-        const storyPromises = top10Ids.map(id =>
-          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then(res => res.json())
-        )
-
-        const storiesData: Story[] = await Promise.all(storyPromises)
-
-        setStories(storiesData)
-      } catch (error) {
-        console.error('Error fetching top stories', error)
-        setError(error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    fetchTopStories()
-  }, [])
+  const { data: stories, isLoading, isError, error } = useQuery<Story[], Error>({
+    queryKey: ['top-10-stories'],
+    queryFn: fetchTopStories,
+    staleTime: 1000 * 60,
+  })
 
   return (
     <>
@@ -46,11 +32,11 @@ const Top10Articles = () => {
       {isLoading && (
         <div>is loading ...</div>
       )}
-      {error && (
-        <div>Error happened</div>
+      {isError && (
+        <div>Error: {error.message}</div>
       )}
       <ul>
-        {stories.map((story, idx) =>
+        {stories?.map((story, idx) =>
           <li key={idx}>
             <a href={story.url} target='_blank' rel='noopener noreferrer'>{story.title}</a>
             <p><strong>Score</strong>: {story.score} - by {story.by}</p>
