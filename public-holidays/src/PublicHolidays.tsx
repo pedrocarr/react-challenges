@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import './PublicHolidays.css'
-import useFetch from '../custom-hooks/useFetch'
+import './index.css'
+import useFetch from './custom-hooks/useFetch'
+
 
 const currentYear = new Date().getFullYear()
 
@@ -39,6 +40,7 @@ const PublicHolidays = () => {
   const countries = data || []
 
   const holidays = holidaysList || []
+
 
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

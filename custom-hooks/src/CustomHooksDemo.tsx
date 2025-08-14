@@ -1,4 +1,4 @@
-import useCustom from "../custom-hooks/useCustom"
+import useCustom from "./useCustom"
 
 const CustomHooksDemo = () => {
 
