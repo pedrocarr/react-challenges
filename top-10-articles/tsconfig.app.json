@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "../custom-hooks/src/CustomHooksDemo.tsx"]
+  "include": ["src", "../custom-hooks/src/CustomHooksDemo.tsx", "../pokemon-list/src/PokemonList.tsx", "../pokemon-list/src/custom-hooks"]
 }
